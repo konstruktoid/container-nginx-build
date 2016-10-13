@@ -1,4 +1,5 @@
 = Nginx
+
 image::https://images.microbadger.com/badges/image/konstruktoid/nginx.svg[link="http://microbadger.com/images/konstruktoid/nginx"]
 
 [source]
