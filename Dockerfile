@@ -1,6 +1,6 @@
 FROM konstruktoid/alpine:latest
 
-LABEL org.label-schema.name="nginx"
+LABEL org.label-schema.name="nginx" \
       org.label-schema.vcs-url="git@github.com:konstruktoid/Nginx_Build.git"
 
 RUN apk update && \
