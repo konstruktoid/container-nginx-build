@@ -14,10 +14,10 @@ http://alpinelinux.org/[Alpine Linux] based Nginx image for Docker 1.12 or later
 
 [source]
 ----
-$ docker build -t konstruktoid/nginx:latest -f Dockerfile .
-$ docker run --name nginx -d -p 443:443 konstruktoid/nginx
+$ docker build --no-cache -t konstruktoid/nginx:latest -f Dockerfile .
+$ docker run --cap-drop={setpcap,mknod} --name nginx -d -p 80:80 konstruktoid/nginx
 c7cd68ec16bf3b480591f441dedf6612d2fbd69f216d432a01208bfa9dacc103
-$ docker ps --quiet | xargs docker inspect --format '{{ .Id }}: Health={{ .State.Health.Status }}' 
+$ docker ps --quiet | xargs docker inspect --format '{{ .Id }}: Health={{ .State.Health.Status }}'
 c7cd68ec16bf3b480591f441dedf6612d2fbd69f216d432a01208bfa9dacc103: Health=healthy
 $ docker inspect --format='{{.Config.Healthcheck}}' konstruktoid/nginx
 {[CMD-SHELL curl -f http://127.0.0.1/ || exit 1] 5m0s 3s 0}
