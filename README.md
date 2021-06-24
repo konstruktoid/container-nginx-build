@@ -1,14 +1,17 @@
 # Static NGINX on Busybox
 
-This is just some sort of concept and will run a statically built
+This is some sort of concept and will run a statically built
 [NGINX](https://www.nginx.com/) server with almost no options enabled
-on a [Busybox](https://busybox.net) binary compiled without most functions.
+on a [Busybox](https://busybox.net) binary compiled without most applets.
 
 ## Build the images
 
 If you want to skip the manual build and run steps required, you can just
-`bash ./image_builds.sh` and then jump to the "Start the NGINX container"
-section.
+jump to the "Start the NGINX container" section.
+
+`bash ./image_builds.sh` will perform all build and run steps if you've made
+some changes you would like too test. Note that the `html/index.html` file
+will be overwritten as well.
 
 ### Build the Busybox image
 

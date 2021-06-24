@@ -45,8 +45,10 @@ echo "${VERSIONS} <br />"
 done
 echo "</p>
 <p>
-<a href=\"https://github.com/konstruktoid\">https://github.com/konstruktoid</a>
+<a href=\"https://github.com/konstruktoid\">konstruktoid</a>
 </p>
 </body>
 </html>"
 } > html/index.html
+
+rm -v 'Dockerfile.bak'
