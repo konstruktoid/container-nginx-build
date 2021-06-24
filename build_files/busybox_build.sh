@@ -62,11 +62,7 @@ mkdir -p ./rootfs/bin ./rootfs/dev ./rootfs/proc
 
 cp ./busybox ./rootfs/bin/busybox
 
-mkdir -p ./rootfs/etc
-
-cp /etc/nsswitch.conf ./rootfs/etc/
-
-mkdir -p ./rootfs/lib  "./rootfs/lib/${GCC_MULTIARCH}"
+mkdir -p ./rootfs/etc ./rootfs/lib  "./rootfs/lib/${GCC_MULTIARCH}"
 ln -sT lib ./rootfs/lib64
 cd ./rootfs/bin || exit 1
 
