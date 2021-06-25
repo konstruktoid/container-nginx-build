@@ -28,15 +28,9 @@ LABEL maintainer='Thomas Sjögren <konstruktoid@users.noreply.github.com>' \
 
 USER root
 
-ADD ./busybox-1.33.1-2106242025.txz /
+ADD ./busybox-1.33.1-2106251830.txz /
 COPY --from=nginx-build /home/builder/buildarea/nginx/objs/nginx /opt/nginx/bin/nginx
 COPY ./config_files/mime.types ./config_files/nginx.conf /opt/nginx/conf/
-
-RUN ln -s /opt/nginx/conf /etc/nginx && \
-    mkdir -p /opt/nginx/logs /var/www/html && \
-    chown -R 65534:65534 /opt/nginx /var/www/html && \
-    ln -sf /dev/stdout /opt/nginx/logs/access.log && \
-    ln -sf /dev/stderr /opt/nginx/logs/error.log
 
 EXPOSE 80 443
 

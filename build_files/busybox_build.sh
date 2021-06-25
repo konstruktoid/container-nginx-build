@@ -79,7 +79,10 @@ for file in system/device_table.txt system/skeleton/etc/group system/skeleton/et
   [ -s "../buildroot/$file" ]
 done
 
-mkdir -p ./rootfs/etc
+mkdir -p ./rootfs/etc ./rootfs/opt/nginx/logs ./rootfs/var/www/html
+chown -R 65534:65534 ./rootfs/opt/nginx ./rootfs/var/www/html
+ln -sf /dev/stdout ./rootfs/opt/nginx/logs/access.log
+ln -sf /dev/stderr ./rootfs/opt/nginx/logs/error.log
 
 cp ../buildroot/system/skeleton/etc/group ../buildroot/system/skeleton/etc/passwd ../buildroot/system/skeleton/etc/shadow ./rootfs/etc/
 

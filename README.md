@@ -35,10 +35,11 @@ docker build --tag konstruktoid/nginx:busybox -f Dockerfile .
 ## Start the NGINX container
 
 ```sh
-docker run --cap-drop=all --cap-add={chown,dac_override,net_bind_service,setgid,setuid} -v "$(pwd)/html":/var/www/html:ro --name nginx -d -p 80:80 konstruktoid/nginx:busybox
+docker run --cap-drop=all --cap-add={chown,dac_override,net_bind_service,setgid,setuid} -v "$(pwd)/config_files":/opt/nginx/conf:ro -v "$(pwd)/html":/var/www/html:ro --name nginx -d -p 80:80 konstruktoid/nginx:busybox
 ```
 
 Where `"$(pwd)/html"` should be replaced with the directory containing your
-website.
+website and `"$(pwd)/config_files"` should be the folder with the NGINX
+configuration files.
 
 Verify that it is working with `curl 127.0.0.1` or similar.
