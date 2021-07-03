@@ -10,11 +10,13 @@ ARG DEBIAN_FRONTEND=noninteractive
 USER root
 
 COPY ./build_files/busybox_build.sh /busybox_build.sh
-COPY ./config_files/busybox_config /tmp/busybox_config
+COPY ./config_files/buildroot_config ./config_files/busybox_config /tmp/
 
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install libncurses5-dev build-essential bzip2 ca-certificates curl gnupg dirmngr && \
+    apt-get -y install bc build-essential bzip2 ca-certificates cpio  curl \
+    dirmngr dpkg-dev file g++ gnupg libncurses5-dev patch perl python3 rsync \
+      unzip wget && \
     rm -rf /var/lib/apt/lists/* \
       /usr/share/doc /usr/share/doc-base \
       /usr/share/man /usr/share/locale /usr/share/zoneinfo && \
