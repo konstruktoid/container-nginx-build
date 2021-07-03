@@ -7,6 +7,8 @@ and a generic TCP/UDP proxy server, originally written by Igor Sysoev."
 
 Website: <http://nginx.org/>
 
+## Build and run instuctions
+
 ```sh
 $ docker build --no-cache -t konstruktoid/nginx:latest -f Dockerfile .
 $ docker run --cap-drop=all --cap-add={chown,dac_override,net_bind_service,setgid,setuid} --name nginx -d -p 80:80 konstruktoid/nginx
@@ -20,3 +22,18 @@ $ docker inspect --format='{{.Config.Healthcheck}}' konstruktoid/nginx
 There's also a concept version with a static NGINX server running on a limited
 Busybox in the
 [busybox branch](https://github.com/konstruktoid/Nginx_Build/tree/busybox).
+
+### Docker image size comparison
+
+```console
+0.73M   busybox:1.33.1
+0.73M   busybox:1.33.1-uclibc
+0.8M    busybox:1.33.1-musl
+1.84M   konstruktoid/nginx:busybox
+2.71M   busybox:1.33.1-glibc
+6.85M   konstruktoid/nginx:latest
+9.38M   nginx:1.20.1-alpine
+17.85M  nginx:1.20.1-alpine-perl
+51.24M  nginx:1.20.1
+61.69M  nginx:1.20.1-perl
+```
