@@ -3,9 +3,7 @@ FROM konstruktoid/alpine:latest
 LABEL maintainer='Thomas Sjögren <konstruktoid@users.noreply.github.com>' \
       vcs-url='git@github.com:konstruktoid/Nginx_Build.git'
 
-RUN apk update && \
-    apk upgrade && \
-    apk --update add curl nginx && \
+RUN apk --no-cache add curl nginx && \
     rm -rf /var/cache/apk/ && \
     mkdir -p /run/nginx && \
     ln -sf /dev/stdout /var/log/nginx/access.log && \
