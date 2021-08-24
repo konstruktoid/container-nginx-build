@@ -14,7 +14,7 @@ COPY ./config_files/buildroot_config ./config_files/busybox_config /tmp/
 
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install bc build-essential bzip2 ca-certificates cpio  curl \
+    apt-get -y install bc build-essential bzip2 ca-certificates cpio curl \
     dirmngr dpkg-dev file g++ gnupg libncurses5-dev patch perl python3 rsync \
       unzip wget && \
     rm -rf /var/lib/apt/lists/* \
