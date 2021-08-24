@@ -5,14 +5,20 @@ set -o pipefail
 
 BASEDIR="$(pwd)"
 BUILDDIR="${BASEDIR}/buildarea"
-NGINX_VERSION="1.20.1"
+NGINX_VERSION="1.21.1"
 OPENSSL_VERSION="1.1.1k"
 OPENSSL_SHA256="892a0875b9872acd04a9fde79b1f943075d5ea162415de3047c327df33fbaee5"
 
 mkdir -p "${BUILDDIR}"
 cd "${BUILDDIR}" || exit 1
 
-wget "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"
+wget https://nginx.org/download/nginx-"${NGINX_VERSION}".{tar.gz,tar.gz.asc}
+
+for key in maxim.key mdounin.key nginx_signing.key sb.key; do
+  curl -sSL "https://nginx.org/keys/${key}" | gpg --import
+done
+
+gpg --verify "nginx-${NGINX_VERSION}".tar.gz.asc || exit 1
 
 tar -xf "nginx-${NGINX_VERSION}".tar.gz
 
