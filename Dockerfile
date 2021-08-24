@@ -7,9 +7,9 @@ USER root
 
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install build-essential ca-certificates gnupg libbz2-dev \
+    apt-get -y install build-essential ca-certificates curl gnupg libbz2-dev \
       libpcre3-dev libssl-dev libxml2-dev libxslt1-dev wget zlib1g-dev && \
-    useradd -m  --user-group --shell /bin/bash builder && \
+    useradd -m --user-group --shell /bin/bash builder && \
     chown -R builder:builder /home/builder && \
     rm -rf /var/lib/apt/lists/* \
       /usr/share/doc /usr/share/doc-base \
