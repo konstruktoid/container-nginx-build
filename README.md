@@ -31,9 +31,9 @@ Busybox in the
 0.8M    busybox:1.33.1-musl
 1.84M   konstruktoid/nginx:busybox
 2.71M   busybox:1.33.1-glibc
-6.85M   konstruktoid/nginx:latest
+6.34M   konstruktoid/nginx:latest
+9.36M   nginx:1.20.0-alpine
+9.38M   nginx:1.20-alpine
 9.38M   nginx:1.20.1-alpine
-17.85M  nginx:1.20.1-alpine-perl
-51.24M  nginx:1.20.1
-61.69M  nginx:1.20.1-perl
+9.38M   nginx:1.21.0-alpine
 ```
