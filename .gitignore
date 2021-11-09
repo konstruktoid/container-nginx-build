@@ -1,2 +1,3 @@
 *.bak
+.vagrant
 busybox_config-*
