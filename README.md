@@ -7,6 +7,9 @@ and a generic TCP/UDP proxy server, originally written by Igor Sysoev."
 
 Website: <http://nginx.org/>
 
+_Please note that because of the changes to [Docker Automated Builds](https://docs.docker.com/docker-hub/builds/)
+many Docker images are now outdated and a manual build is required and recommended._
+
 ## Build and run instuctions
 
 ```sh
