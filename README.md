@@ -13,6 +13,9 @@ jump to the "Start the NGINX container" section.
 some changes you would like too test. Note that the `html/index.html` file
 will be overwritten as well.
 
+_Please note that because of the changes to [Docker Automated Builds](https://docs.docker.com/docker-hub/builds/)
+many Docker images are now outdated and a manual build is required and recommended._
+
 ### Build the Busybox image
 
 ```sh
