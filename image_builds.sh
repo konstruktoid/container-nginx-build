@@ -16,7 +16,7 @@ done
 if [ -n "${BUSYBOX_IMAGE}" ]; then
   echo "Got ${BUSYBOX_IMAGE}."
   sed -i.bak "s/ADD.*/ADD \.\/${BUSYBOX_IMAGE} \//" Dockerfile
-  docker build --tag konstruktoid/nginx:busybox -f Dockerfile .
+  docker build --tag ghcr.io/konstruktoid:busybox -f Dockerfile .
 else
   echo "No Busybox image found. Exiting."
   exit 1

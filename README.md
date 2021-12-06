@@ -32,13 +32,13 @@ Update the `Dockerfile` with the link to the Busybox image created above,
 e.g `ADD ./busybox-1.33.1-2106220844.txz /`.
 
 ```sh
-docker build --tag konstruktoid/nginx:busybox -f Dockerfile .
+docker build --tag ghcr.io/konstruktoid/nginx:busybox -f Dockerfile .
 ```
 
 ## Start the NGINX container
 
 ```sh
-docker run --cap-drop=all --cap-add={chown,dac_override,net_bind_service,setgid,setuid} -v "$(pwd)/config_files":/opt/nginx/conf:ro -v "$(pwd)/html":/var/www/html:ro --name nginx -d -p 80:80 konstruktoid/nginx:busybox
+docker run --cap-drop=all --cap-add={chown,dac_override,net_bind_service,setgid,setuid} -v "$(pwd)/config_files":/opt/nginx/conf:ro -v "$(pwd)/html":/var/www/html:ro --name nginx -d -p 80:80 ghcr.io/konstruktoid/nginx:busybox
 ```
 
 Where `"$(pwd)/html"` should be replaced with the directory containing your
