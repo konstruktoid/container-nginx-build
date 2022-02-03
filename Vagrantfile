@@ -13,5 +13,7 @@ Vagrant.configure("2") do |config|
     focal.ssh.insert_key = true
     focal.vm.box = "ubuntu/focal64"
     focal.vm.hostname = "focal"
+    focal.vm.provision "shell",
+      inline: "apt-get update && curl -sSL get.docker.com | sh && addgroup vagrant docker"
   end
 end
