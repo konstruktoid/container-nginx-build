@@ -28,7 +28,7 @@ LABEL maintainer='Thomas Sjögren <konstruktoid@users.noreply.github.com>' \
 
 USER root
 
-ADD ./busybox-1.34.1-2111092205.txz /
+ADD ./busybox-1.34.1-2202031146.txz /
 COPY --from=nginx-build /home/builder/buildarea/nginx/objs/nginx /opt/nginx/bin/nginx
 COPY ./config_files/mime.types ./config_files/nginx.conf /opt/nginx/conf/
 
