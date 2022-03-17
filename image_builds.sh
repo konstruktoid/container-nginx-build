@@ -3,8 +3,16 @@
 set -eu
 set -o pipefail
 
-docker build --tag busyboximage:latest -f Dockerfile.busybox .
-docker run --rm -ti -v "$(pwd)":/tmp/busybox busyboximage
+CONTAINER_TOOL=""
+
+if ! command -v docker; then
+  CONTAINER_TOOL="$(which podman)"
+else
+  CONTAINER_TOOL="$(which docker)"
+fi
+
+${CONTAINER_TOOL} build --tag busyboximage:latest -f Dockerfile.busybox .
+${CONTAINER_TOOL} run -ti -v "$(pwd)":/tmp/busybox busyboximage
 
 BUSYBOX_IMAGE=""
 
@@ -16,7 +24,7 @@ done
 if [ -n "${BUSYBOX_IMAGE}" ]; then
   echo "Got ${BUSYBOX_IMAGE}."
   sed -i.bak "s/ADD.*/ADD \.\/${BUSYBOX_IMAGE} \//" Dockerfile
-  docker build --tag ghcr.io/konstruktoid:busybox -f Dockerfile .
+  ${CONTAINER_TOOL} build --tag ghcr.io/konstruktoid:busybox -f Dockerfile .
 else
   echo "No Busybox image found. Exiting."
   exit 1
