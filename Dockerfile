@@ -1,7 +1,7 @@
 FROM konstruktoid/alpine:latest
 
 LABEL maintainer='Thomas Sjögren <konstruktoid@users.noreply.github.com>' \
-      vcs-url='git@github.com:konstruktoid/Nginx_Build.git'
+      vcs-url='git@github.com:konstruktoid/container-nginx-build.git'
 
 RUN apk --no-cache add curl nginx && \
     rm -rf /var/cache/apk/ && \
@@ -10,7 +10,7 @@ RUN apk --no-cache add curl nginx && \
     ln -sf /dev/stderr /var/log/nginx/error.log
 
 HEALTHCHECK --interval=5m --timeout=3s \
-   CMD curl -f http://127.0.0.1/ || exit 1
+   CMD curl -f 127.0.0.1 || exit 1
 
 EXPOSE 80 443
 
