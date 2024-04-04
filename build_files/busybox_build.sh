@@ -4,11 +4,11 @@
 set -eux
 set -o pipefail
 
-BUSYBOX_VERSION="1.34.1"
-BUSYBOX_SHA256="415fbd89e5344c96acf449d94a6f956dbed62e18e835fc83e064db33a34bd549"
+BUSYBOX_VERSION="1.36.1"
+BUSYBOX_SHA256="b8cc24c9574d809e7279c3be349795c5d5ceb6fdf19ca709f80cde50e47de314"
 BUSYBOX_TAR="busybox-${BUSYBOX_VERSION}.tar.bz2"
-BUILDROOT_VERSION="2021.05"
-BUILDROOT_TAR="buildroot-${BUILDROOT_VERSION}.tar.bz2"
+BUILDROOT_VERSION="2024.02.1"
+BUILDROOT_TAR="buildroot-${BUILDROOT_VERSION}.tar.gz"
 BASEDIR="$(pwd)"
 BUILDDIR="${BASEDIR}/buildarea"
 BUILDROOT_DIR="/usr/src/buildroot"
@@ -32,31 +32,25 @@ if [ -d "${BASEDIR}/buildroot" ]; then
   rm -rv "${BASEDIR}/buildroot"
 fi
 
-echo "Downloading GPG keys."
-
-gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 0xAB07D806D2CE741FB886EE50B025BA8B59C36319
-gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 0xC9E9416F76E610DBD09D040F47B70C55ACC9965B
+curl -fsSL "http://buildroot.org/~jacmet/pubkey.gpg" | gpg --import
 
 echo "Downloading https://busybox.net/downloads/${BUSYBOX_TAR}."
 
-curl --progress-bar -fL -o busybox.tar.bz2 "https://busybox.net/downloads/${BUSYBOX_TAR}"
-curl --progress-bar -fL -o busybox.tar.bz2.sig "https://busybox.net/downloads/${BUSYBOX_TAR}.sig"
+curl -fsSL -o busybox.tar.bz2 "https://busybox.net/downloads/${BUSYBOX_TAR}"
 
 echo "Downloading https://buildroot.org/downloads/${BUILDROOT_TAR}"
 
-curl --progress-bar -fL -o buildroot.tar.bz2 "https://buildroot.org/downloads/${BUILDROOT_TAR}"
-curl --progress-bar -fL -o buildroot.tar.bz2.sign "https://buildroot.org/downloads/${BUILDROOT_TAR}.sign"
+curl -fsSL -o buildroot.tar.gz "https://buildroot.org/downloads/${BUILDROOT_TAR}"
+curl -fsSL -o buildroot.tar.gz.sign "https://buildroot.org/downloads/${BUILDROOT_TAR}.sign"
 
 echo "Verifying files."
 
-gpg --verify busybox.tar.bz2.sig busybox.tar.bz2
-
 echo "${BUSYBOX_SHA256} busybox.tar.bz2" | sha256sum -c - || exit 1
 
-if gpg --verify buildroot.tar.bz2.sign; then
-  BUILDROOT_SHA1="$(gpg -d buildroot.tar.bz2.sign | \
+if gpg --verify buildroot.tar.gz.sign; then
+  BUILDROOT_SHA1="$(gpg -d buildroot.tar.gz.sign | \
     grep -E "^SHA1:\s[0-9a-f].{39}\s.*${BUILDROOT_TAR}$" | awk '{print $2}')"
-  echo "${BUILDROOT_SHA1} buildroot.tar.bz2" | sha1sum -c - || exit 1
+  echo "${BUILDROOT_SHA1} buildroot.tar.gz" | sha1sum -c - || exit 1
 else
   echo "${BUILDROOT_TAR} verification failed."
   exit 1
@@ -67,10 +61,10 @@ mkdir -vp "${BUILDROOT_DIR}"
 mkdir -vp "${BUILDOUTPUT}"
 
 tar -xf busybox.tar.bz2 -C "${BUILDDIR}" --strip-components 1
-tar -xf buildroot.tar.bz2 -C "${BUILDROOT_DIR}" --strip-components 1
+tar -xf buildroot.tar.gz -C "${BUILDROOT_DIR}" --strip-components 1
 
 rm -v busybox.tar.bz2*
-rm -v buildroot.tar.bz2*
+rm -v buildroot.tar.gz*
 
 cd "${BUILDROOT_DIR}" || exit 1
 
@@ -88,10 +82,6 @@ cd "${BUILDDIR}" || exit 1
 echo "Create and use Busybox config."
 make allnoconfig
 cp /tmp/busybox_config .config
-
-CROSS_COMPILE="$(basename ${BUILDROOT_DIR}/output/host/usr/*-buildroot-linux-uclibc*)"
-export CROSS_COMPILE="${CROSS_COMPILE}-"
-
 make -j 1 busybox
 
 # cp "${BUILDDIR}/.config" "${BUILDOUTPUT}/busybox_config-${BUILD_DATE}"
