@@ -29,10 +29,10 @@ will be stored.
 ### Build the NGINX image
 
 Update the `Dockerfile` with the link to the Busybox image created above,
-e.g `ADD ./busybox-1.33.1-2106220844.txz /`.
+e.g `ADD ./busybox-1.36.1-2404041842.txz /`.
 
 ```sh
-docker build --tag ghcr.io/konstruktoid/nginx:busybox -f Dockerfile .
+docker build --tag nginx:busybox -f Dockerfile .
 ```
 
 ## Start the NGINX container
