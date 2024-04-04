@@ -24,7 +24,7 @@ done
 if [ -n "${BUSYBOX_IMAGE}" ]; then
   echo "Got ${BUSYBOX_IMAGE}."
   sed -i.bak "s/ADD.*/ADD \.\/${BUSYBOX_IMAGE} \//" Dockerfile
-  ${CONTAINER_TOOL} build --tag ghcr.io/konstruktoid:busybox -f Dockerfile .
+  ${CONTAINER_TOOL} build --tag ghcr.io/konstruktoid/nginx:busybox -f Dockerfile .
 else
   echo "No Busybox image found. Exiting."
   exit 1
@@ -49,7 +49,7 @@ Static NGINX running in limited Busybox container
 </p>
 <p>"
 for VERSIONS in $(grep _VERSION= build_files/* | awk -F ':' '{print $NF}' | sed 's/=/: /g' | tr -d '"' | uniq); do
-echo "${VERSIONS} <br />"
+echo "${VERSIONS}<br />"
 done
 echo "</p>
 <p>
