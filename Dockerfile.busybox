@@ -1,6 +1,7 @@
-FROM konstruktoid/ubuntu:focal
+FROM ubuntu:jammy
 
-LABEL maintainer='Thomas Sjögren <konstruktoid@users.noreply.github.com>'
+LABEL maintainer='Thomas Sjögren <konstruktoid@users.noreply.github.com>' \
+      vcs-url='git@github.com:konstruktoid/container-nginx-build.git'
 
 ENV BUILDAREA /opt/buildarea
 
@@ -13,10 +14,10 @@ COPY ./build_files/busybox_build.sh /busybox_build.sh
 COPY ./config_files/buildroot_config ./config_files/busybox_config /tmp/
 
 RUN apt-get update && \
-    apt-get -y upgrade && \
-    apt-get -y install bc build-essential bzip2 ca-certificates cpio curl \
-    dirmngr dpkg-dev file g++ gnupg libncurses5-dev patch perl python3 rsync \
-      unzip wget && \
+    apt-get --assume-yes upgrade && \
+    apt-get --assume-yes install bc build-essential bzip2 ca-certificates \
+      cpio curl dirmngr dpkg-dev file g++ gnupg libncurses5-dev patch perl \
+      python3 rsync unzip wget && \
     rm -rf /var/lib/apt/lists/* \
       /usr/share/doc /usr/share/doc-base \
       /usr/share/man /usr/share/locale /usr/share/zoneinfo && \
