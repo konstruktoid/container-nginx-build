@@ -8,12 +8,12 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--uartmode1", "file", File::NULL]
   end
 
-  config.vm.define "focal" do |focal|
-    focal.ssh.extra_args = ["-o","ConnectTimeout=600"]
-    focal.ssh.insert_key = true
-    focal.vm.box = "ubuntu/focal64"
-    focal.vm.hostname = "focal"
-    focal.vm.provision "shell",
+  config.vm.define "jammy" do |jammy|
+    jammy.ssh.extra_args = ["-o","ConnectTimeout=600"]
+    jammy.ssh.insert_key = true
+    jammy.vm.box = "ubuntu/jammy64"
+    jammy.vm.hostname = "jammy"
+    jammy.vm.provision "shell",
       inline: "apt-get update && curl -sSL get.docker.com | sh && addgroup vagrant docker"
   end
 end
