@@ -1,4 +1,4 @@
-FROM konstruktoid/alpine:latest@sha256:3f47343c0873bce996c9bd6d336b44e41faa77b86558a90e213eb8da644199de
+FROM konstruktoid/alpine:latest@sha256:0706f943cac00885d24219214bfab509d61209cfc052c9967bd051edd1eb2da9
 
 LABEL org.opencontainers.image.title="nginx" \
       org.opencontainers.image.description="Nginx HTTP and reverse proxy server" \
